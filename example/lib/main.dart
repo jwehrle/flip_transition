@@ -86,8 +86,8 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             const Text(
               'Flip the card by pressing the button:',
             ),
-            TiltTransition(
-              tilts: _animation,
+            FlipTransition(
+              flips: _animation,
               child: PivotSwitcher(
                 listenable: _animation,
                 pivot: 0.5,

@@ -4,22 +4,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class TiltTransition extends AnimatedWidget {
+class FlipTransition extends AnimatedWidget {
   /// Creates a tile transition.
   ///
   /// The [turns] argument must not be null.
-  const TiltTransition({
+  const FlipTransition({
     super.key,
-    required Animation<double> tilts,
+    required Animation<double> flips,
     this.filterQuality,
     this.child,
-  }) : super(listenable: tilts);
+  }) : super(listenable: flips);
 
   /// The animation that controls the tilt of the child.
   ///
   /// If the current value of the turns animation is v, the child will be
   /// tilted v as a proportion of 180 degrees (0.5 is 90 degrees) before being painted.
-  Animation<double> get tilts => listenable as Animation<double>;
+  Animation<double> get flips => listenable as Animation<double>;
 
   /// The filter quality with which to apply the transform as a bitmap operation.
   ///
@@ -42,7 +42,7 @@ class TiltTransition extends AnimatedWidget {
     // it has finished significantly hurts performance.
     final bool useFilterQuality;
 
-    switch (tilts.status) {
+    switch (flips.status) {
       case AnimationStatus.dismissed:
       case AnimationStatus.completed:
         useFilterQuality = false;
@@ -55,7 +55,7 @@ class TiltTransition extends AnimatedWidget {
     return Transform(
       transform: Matrix4.identity()
         ..setEntry(3, 2, 0.001)
-        ..rotateX(180 * tilts.value / 180 * math.pi),
+        ..rotateX(180 * flips.value / 180 * math.pi),
       alignment: Alignment.center,
       filterQuality: useFilterQuality ? filterQuality : null,
       child: child,
